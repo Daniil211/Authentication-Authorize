@@ -1,11 +1,19 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using WebIdentity;
+using WebIdentity.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+var connectionStringUsers = builder.Configuration.GetConnectionString("UserDB");
+builder.Services.AddDbContext<UserDbContext>(options => options.UseSqlite(connectionStringUsers));
+builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<UserDbContext>();
+
 builder.Services.Configure<JWTSettings>(builder.Configuration.GetSection("JWTSettings"));
 
 //секретные фразы, которые знает только сервер
