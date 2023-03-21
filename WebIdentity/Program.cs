@@ -42,6 +42,11 @@ AddJwtBearer(options =>
     };
 });
 
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("OnlyIT", policeBuilder => policeBuilder.RequireClaim("Proffession", "Programmer"));
+});//политика что вход только у programmer отличное от него 403
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

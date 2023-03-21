@@ -1,6 +1,8 @@
 ﻿namespace WebIdentity.Models
 {
-    public class enumProfession
+    public enum enumProfession
     {
+        Manager,
+        Programmer
     }
 }
